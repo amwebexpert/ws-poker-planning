@@ -19,5 +19,5 @@ export type MessageType = 'reset' | 'vote';
 
 export type UserMessage = {
   type: MessageType;
-  payload: unknown;
+  payload?: unknown;
 };
