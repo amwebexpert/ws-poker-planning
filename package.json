@@ -6,7 +6,6 @@
   "scripts": {
     "compile": "tsc",
     "start": "tsc && ncp src public && node public/server.js",
-    "start:original": "node src/server-original.js",
     "build": "tsc && ncp src public"
   },
   "keywords": [
