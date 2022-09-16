@@ -1,16 +1,17 @@
-# poc_flutter_03_server
-Proof of concept of WebSockets - Server side
+# WSPockerPlanning
 
-Server for handling communications between Flutter and other clients like webapp or other Flutter app
+Server for handling communications between WebSocket clients for pocker planning
 
-### Deployed on Heroku
+### Production deployment
 
-* https://poc-flutter-03-server.herokuapp.com/
+- N/A (yet)
 
+### Localhost deployment
+
+- ws://localhost/ws
 
 ### References
 
+- [WebSocket explained](https://javascript.info/websocket)
 - [Deploying a Node.js server with WebSockets on a free hosting Heroku](https://www.gamedev.net/blogs/entry/2272759-deploying-a-nodejs-server-with-websockets-on-a-free-hosting-heroku-web-desktop-clients-qt/)
 - [Express WS service example](https://github.com/8Observer8/mouse-click-js)
-
-- [WebSocket explained](https://javascript.info/websocket)
