@@ -1,6 +1,6 @@
 # WSPockerPlanning
 
-Server for handling communications between WebSocket clients for pocker planning
+Server for handling agile pocker planning sessions communications through WebSocket clients
 
 ### Production deployment
 
