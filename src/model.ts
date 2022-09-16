@@ -14,3 +14,10 @@ export type UserEstimate = {
   estimate?: string;
   estimatedAt?: Date;
 };
+
+export type MessageType = 'reset' | 'vote';
+
+export type UserMessage = {
+  type: MessageType;
+  payload: unknown;
+};
