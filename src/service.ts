@@ -14,7 +14,7 @@ class PokerPlanningService {
         const room = this.rooms.get(roomUUID)!;
         room.members.add(socket);
 
-        socket.on('message', (value: string) => this.broadcast(roomUUID, value));
+        socket.on('message', (value: string) => this.handleMessage(roomUUID, value));
         socket.on('close', () => this.close(roomUUID, socket));
     }
 
@@ -29,7 +29,7 @@ class PokerPlanningService {
         };
     }
 
-    broadcast(roomUUID: string, value: string) {
+    handleMessage(roomUUID: string, value: string) {
         const message = `${value}`;
         console.log('Server side onMessage:::', message);
 
@@ -39,6 +39,7 @@ class PokerPlanningService {
             return;
         }
 
+        // broadcast to all room members
         room.members.forEach(client => client.send(message));
     }
 
