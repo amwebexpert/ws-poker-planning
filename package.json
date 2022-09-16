@@ -1,0 +1,26 @@
+{
+  "name": "web-sockets-example",
+  "version": "1.0.0",
+  "description": "WebSockets example project",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "start": "tsc && node public/server.js",
+    "start:original": "node src/server-original.js",
+    "build": "ncp src public"
+  },
+  "keywords": [
+    "websocket"
+  ],
+  "author": "amwebexpert@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.8.3",
+    "ws": "^8.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "@types/ws": "^8.5.3",
+    "ncp": "^2.0.0"
+  }
+}
