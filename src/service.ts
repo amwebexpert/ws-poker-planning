@@ -1,42 +1,55 @@
 import * as ws from 'ws';
+import { Room } from './model';
 
 class PokerPlanningService {
-    private rooms: Map<string, Set<ws.WebSocket>> = new Map();
+    private rooms: Map<string, Room> = new Map();
 
     addClient(roomUUID: string, socket: ws.WebSocket) {
         if (!this.rooms.has(roomUUID)) {
-          console.log('creating room', roomUUID);
-          this.rooms.set(roomUUID, new Set());
+            console.log('creating room', roomUUID);
+            this.rooms.set(roomUUID, this.createRoom(roomUUID));
         }
 
-        console.log('addClient to room', roomUUID);
-        this.rooms.get(roomUUID)!.add(socket);
+        console.log('adding member to room', roomUUID);
+        const room = this.rooms.get(roomUUID)!;
+        room.members.add(socket);
 
         socket.on('message', (value: string) => this.broadcast(roomUUID, value));
         socket.on('close', () => this.close(roomUUID, socket));
+    }
+
+    private createRoom(roomUUID: string): Room {
+        return {
+            uuid: roomUUID,
+            members: new Set(),
+            state: {
+                lastUpdate: new Date(),
+                estimates: [],
+            },
+        };
     }
 
     broadcast(roomUUID: string, value: string) {
         const message = `${value}`;
         console.log('Server side onMessage:::', message);
 
-        const roomClients = this.rooms.get(roomUUID);
-        if (!roomClients) {
+        const room = this.rooms.get(roomUUID);
+        if (!room) {
             console.log('no room clients', roomUUID);
             return;
         }
 
-        roomClients.forEach(client => client.send(message));
+        room.members.forEach(client => client.send(message));
     }
 
     close(roomUUID: string, socket: ws.WebSocket): void {
-        const roomClients = this.rooms.get(roomUUID);
-        if (!roomClients) {
+        const room = this.rooms.get(roomUUID);
+        if (!room) {
             return;
         }
 
         socket.removeAllListeners();
-        roomClients.delete(socket);
+        room.members.delete(socket);
     }
 }
 
