@@ -31,7 +31,7 @@ class PokerPlanningService {
 
     handleMessage(roomUUID: string, value: string) {
         const message = `${value}`;
-        console.log('Server side onMessage:::', message);
+        console.log('Server side onMessage:::', {roomUUID, message});
 
         const room = this.rooms.get(roomUUID);
         if (!room) {
