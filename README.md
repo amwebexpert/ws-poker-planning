@@ -17,3 +17,4 @@ Server for handling agile pocker planning sessions communications through WebSoc
 - [Express WS service example](https://github.com/8Observer8/mouse-click-js)
 - [Socket.IO enables real-time bidirectional event-based communication](https://github.com/socketio/socket.io)
 - [ReconnectingWebSocket](https://github.com/joewalnes/reconnecting-websocket/)
+- [GCP Using WebSockets](https://cloud.google.com/run/docs/triggering/websockets)
