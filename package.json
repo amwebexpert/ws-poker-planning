@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "start": "tsc && node public/server.js",
+    "start": "tsc && ncp src public && node public/server.js",
     "start:original": "node src/server-original.js",
-    "build": "ncp src public"
+    "build": "tsc && ncp src public"
   },
   "keywords": [
     "websocket"

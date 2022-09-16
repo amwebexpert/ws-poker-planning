@@ -1,50 +1,42 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as ws from 'ws';
-
-const wss = new ws.Server({ noServer: true });
-const clients = new Set<ws.WebSocket>();
-
-function accept(req: http.IncomingMessage, res: http.ServerResponse) {
-    console.log('Accepting an incoming connection...');
-
-    if (
-        req.url == '/ws' &&
-        req.headers.upgrade &&
-        req.headers.upgrade.toLowerCase() === 'websocket' &&
-        req.headers.connection?.match(/\bupgrade\b/i) // can be Connection: keep-alive, Upgrade
-    ) {
-        console.log('Upgrading connection to websocket');
-        wss.handleUpgrade(req, req.socket, Buffer.alloc(0), onSocketConnect);
-    } else if (req.url == '/') {
-        // index.html
-        console.log('Returning static page index.html file...');
-        fs.createReadStream('./src/index.html').pipe(res);
-    } else {
-        // page not found
-        console.log('Returning classic HTTP 404 NotFound');
-        res.writeHead(404);
-        res.end();
-    }
-}
-
-function onSocketConnect(ws: ws.WebSocket) {
-    console.log('onSocketConnect: adding a new connected client');
-    clients.add(ws);
-
-    ws.on('message', function (value: string) {
-        const message = `${value}`;
-        console.log('Server side onMessage:::', message);
-
-        clients.forEach(client => client.send(message));
-    });
-
-    ws.on('close', function () {
-        console.log('Server side onClose');
-        clients.delete(ws);
-    });
-}
+import { service } from './service';
 
 const port = process.env.PORT || 80;
+const wss = new ws.Server({ noServer: true });
+
+const accept = (request: http.IncomingMessage, response: http.ServerResponse) => {
+    console.log('Accepting an incoming connection');
+
+    if (isWebSocketRequest(request)) {
+        console.log('Upgrading connection to websocket');
+        wss.handleUpgrade(request, request.socket, Buffer.alloc(0), onSocketConnect);
+    } else if (request.url == '/') {
+        console.log('Returning static /index.html page');
+        fs.createReadStream('./src/index.html').pipe(response);
+    } else {
+        response.writeHead(404); // classic page not found
+        response.end();
+    }
+};
+
+const isWebSocketRequest = (request: http.IncomingMessage): boolean =>
+    (request.url ?? '').startsWith('/ws') &&
+    request.headers.upgrade?.toLowerCase() === 'websocket' &&
+    /\bupgrade\b/i.test(request.headers.connection ?? ''); // can be Connection: keep-alive, Upgrade
+
+const getRoomUUID = (request: http.IncomingMessage): string => {
+    if (!request.url || !request.url.includes('?') || !request.url.includes('roomUUID=')) {
+        return 'default';
+    }
+
+    const roomUUID = request.url.split('?roomUUID=')[1];
+    return roomUUID;
+};
+
+const onSocketConnect = (socket: ws.WebSocket, request: http.IncomingMessage) =>
+    service.addClient(getRoomUUID(request), socket);
+
 console.log('Starting the server. Listening on port ', port);
 http.createServer(accept).listen(port);
