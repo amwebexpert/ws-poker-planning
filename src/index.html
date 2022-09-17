@@ -19,7 +19,7 @@
 <div id="messages"></div>
 
 <script>
-  const url = location.host == 'localhost' ? 'ws://localhost/ws' : 'wss://poc-flutter-03-server.herokuapp.com/ws';
+  const url = location.host == 'localhost' ? 'ws://localhost/ws' : 'wss://ws-poker-planning.herokuapp.com/ws';
   document.getElementById('url').prepend(url);
 
   let socket = new WebSocket(url);
