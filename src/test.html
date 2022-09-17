@@ -1,53 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<title>Simple WebSocket demo</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Simple WebSocket demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<body>
+    <body>
+        <div>Target server: <span id="url"></span></div>
 
-<div>
-  Target server: <span id="url"></span>
-</div>
+        <form name="publish">
+            <input type="text" name="message" value="4" />
+            <input type="submit" value="Send" />
+        </form>
 
-<form name="publish">
-  <textarea name="message" style="width:100%" rows="10">{"type": "vote", "payload": { "username": "amwebexpert", "estimate": "4", "estimatedAt": "2022-09-12T11:28:35.009Z"}}</textarea>
-  <input type="submit" value="Send"/>
-</form>
+        <br />
+        <br />
+        <div id="messages"></div>
 
-<br />
-<br />
-<div id="messages"></div>
+        <script>
+            const url = location.host == 'localhost' ? 'ws://localhost/ws' : 'wss://ws-poker-planning.herokuapp.com/ws';
+            document.getElementById('url').prepend(url);
 
-<script>
-  const url = location.host == 'localhost' ? 'ws://localhost/ws' : 'wss://ws-poker-planning.herokuapp.com/ws';
-  document.getElementById('url').prepend(url);
+            let socket = new WebSocket(url);
 
-  let socket = new WebSocket(url);
+            // send message from the form
+            document.forms.publish.onsubmit = function () {
+                const outgoingMessage = {
+                    type: 'vote',
+                    payload: {
+                        username: 'JohnDoe',
+                        estimate: this.message.value,
+                        estimatedAt: '2022-10-25T11:28:35.009Z',
+                    },
+                };
+                this.message.value = '';
 
-  // send message from the form
-  document.forms.publish.onsubmit = function() {
-    const outgoingMessage = this.message.value;
-    this.message.value = '';
+                socket.send(JSON.stringify(message));
+                return false;
+            };
 
-    socket.send(message);
-    return false;
-  };
+            // handle incoming messages
+            socket.onmessage = function (event) {
+                let incomingMessage = event.data;
+                showMessage(incomingMessage);
+            };
 
-  // handle incoming messages
-  socket.onmessage = function(event) {
-    let incomingMessage = event.data;
-    showMessage(incomingMessage);
-  };
+            socket.onclose = event => console.log(`Closed ${event.code}`);
 
-  socket.onclose = event => console.log(`Closed ${event.code}`);
-
-  // show message in div#messages
-  function showMessage(message) {
-    let messageElem = document.createElement('div');
-    messageElem.textContent = message;
-    document.getElementById('messages').prepend(messageElem);
-  }
-</script>
-
-</body>
+            // show message in div#messages
+            function showMessage(message) {
+                let messageElem = document.createElement('div');
+                messageElem.textContent = message;
+                document.getElementById('messages').prepend(messageElem);
+            }
+        </script>
+    </body>
 </html>
