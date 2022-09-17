@@ -16,6 +16,10 @@ var accept = function (request, response) {
         console.log('Returning static /index.html page');
         fs.createReadStream('./src/index.html').pipe(response);
     }
+    else if (request.url == '/test.html') {
+        console.log('Returning static /test.html page');
+        fs.createReadStream('./src/test.html').pipe(response);
+    }
     else {
         response.writeHead(404); // classic page not found
         response.end();
