@@ -7,8 +7,8 @@
         <div>Target server: <span id="url"></span></div>
 
         <form name="publish">
-            <input type="text" name="message" value="4" />
-            <input type="button" value="Send" />
+            <input type="text" name="message" id="message" value="4" />
+            <input type="button" value="Send" onclick="submitVote()" />
         </form>
 
         <br />
@@ -20,22 +20,6 @@
             document.getElementById('url').prepend(url);
 
             let socket = new WebSocket(url);
-
-            // send message from the form
-            document.forms.publish.onsubmit = function () {
-                const outgoingMessage = {
-                    type: 'vote',
-                    payload: {
-                        username: 'JohnDoe',
-                        estimate: this.message.value,
-                        estimatedAt: '2022-10-25T11:28:35.009Z',
-                    },
-                };
-                this.message.value = '';
-
-                socket.send(JSON.stringify(message));
-                return false;
-            };
 
             // handle incoming messages
             socket.onmessage = function (event) {
@@ -50,6 +34,21 @@
                 let messageElem = document.createElement('div');
                 messageElem.textContent = message;
                 document.getElementById('messages').prepend(messageElem);
+            }
+
+            // send message from the form
+            function submitVote() {
+                const outgoingMessage = {
+                    type: 'vote',
+                    payload: {
+                        username: 'JohnDoe',
+                        estimate: document.getElementById('message').value,
+                        estimatedAt: '2022-10-25T11:28:35.009Z',
+                    },
+                };
+
+                socket.send(JSON.stringify(outgoingMessage));
+                return false;
             }
         </script>
     </body>
