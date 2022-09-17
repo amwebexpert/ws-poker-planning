@@ -10,7 +10,7 @@
 </div>
 
 <form name="publish">
-  <input type="text" name="message"/>
+  <textarea name="message" style="width:100%" rows="10">{"type": "vote", "payload": { "username": "amwebexpert", "estimate": "4", "estimatedAt": "2022-09-12T11:28:35.009Z"}}</textarea>
   <input type="submit" value="Send"/>
 </form>
 
@@ -29,7 +29,7 @@
     const outgoingMessage = this.message.value;
     this.message.value = '';
 
-    socket.send(JSON.stringify({username: outgoingMessage}));
+    socket.send(message);
     return false;
   };
 
