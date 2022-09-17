@@ -16,7 +16,7 @@ var PokerPlanningService = /** @class */ (function () {
         socket.on('message', function (value) { return _this.handleMessage(roomUUID, value); });
         socket.on('close', function () { return _this.close(roomUUID, socket); });
         // send current state
-        var data = JSON.stringify(room.state.estimates);
+        var data = JSON.stringify(room.state);
         socket.send(data);
     };
     PokerPlanningService.prototype.createRoom = function (roomUUID) {
@@ -37,20 +37,21 @@ var PokerPlanningService = /** @class */ (function () {
             console.log('room not found', roomUUID);
             return;
         }
+        var state = room.state;
         switch (message.type) {
             case 'reset':
-                room.state.lastUpdate = new Date();
-                room.state.estimates = room.state.estimates.map(function (e) { return ({ username: e.username }); });
+                state.lastUpdate = new Date();
+                state.estimates = state.estimates.map(function (e) { return ({ username: e.username }); });
                 break;
             case 'vote':
-                room.state.lastUpdate = new Date();
+                state.lastUpdate = new Date();
                 var newEstimate_1 = message.payload;
-                var oldEstimateIndex = room.state.estimates.findIndex(function (e) { return e.username === newEstimate_1.username; });
+                var oldEstimateIndex = state.estimates.findIndex(function (e) { return e.username === newEstimate_1.username; });
                 if (oldEstimateIndex === -1) {
-                    room.state.estimates.push(newEstimate_1);
+                    state.estimates.push(newEstimate_1);
                 }
                 else {
-                    room.state.estimates[oldEstimateIndex] = newEstimate_1;
+                    state.estimates[oldEstimateIndex] = newEstimate_1;
                 }
                 break;
             default:
@@ -58,7 +59,7 @@ var PokerPlanningService = /** @class */ (function () {
                 break;
         }
         // broadcast state to all room members
-        var data = JSON.stringify(room.state.estimates);
+        var data = JSON.stringify(state);
         room.members.forEach(function (client) { return client.send(data); });
     };
     PokerPlanningService.prototype.close = function (roomUUID, socket) {

@@ -17,7 +17,7 @@ class PokerPlanningService {
         socket.on('close', () => this.close(roomUUID, socket));
 
         // send current state
-        const data = JSON.stringify(room.state.estimates);
+        const data = JSON.stringify(room.state);
         socket.send(data);
     }
 
@@ -42,20 +42,22 @@ class PokerPlanningService {
             return;
         }
 
+        const {state} = room;
+
         switch (message.type) {
             case 'reset':
-                room.state.lastUpdate = new Date();
-                room.state.estimates = room.state.estimates.map(e => ({ username: e.username }));
+                state.lastUpdate = new Date();
+                state.estimates = state.estimates.map(e => ({ username: e.username }));
                 break;
 
             case 'vote':
-                room.state.lastUpdate = new Date();
+                state.lastUpdate = new Date();
                 const newEstimate = message.payload as UserEstimate;
-                const oldEstimateIndex = room.state.estimates.findIndex(e => e.username === newEstimate.username);
+                const oldEstimateIndex = state.estimates.findIndex(e => e.username === newEstimate.username);
                 if (oldEstimateIndex === -1) {
-                    room.state.estimates.push(newEstimate);
+                    state.estimates.push(newEstimate);
                 } else {
-                    room.state.estimates[oldEstimateIndex] = newEstimate;
+                    state.estimates[oldEstimateIndex] = newEstimate;
                 }
                 break;
 
@@ -65,7 +67,7 @@ class PokerPlanningService {
         }
 
         // broadcast state to all room members
-        const data = JSON.stringify(room.state.estimates);
+        const data = JSON.stringify(state);
         room.members.forEach(client => client.send(data));
     }
 
