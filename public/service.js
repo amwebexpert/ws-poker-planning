@@ -31,7 +31,7 @@ var PokerPlanningService = /** @class */ (function () {
     };
     PokerPlanningService.prototype.handleMessage = function (roomUUID, value) {
         var message = JSON.parse("".concat(value));
-        // console.log('Server side onMessage:::', { roomUUID, message });
+        console.log('Server side handleMessage', { roomUUID: roomUUID, message: message });
         var room = this.rooms.get(roomUUID);
         if (!room) {
             console.log('room not found', roomUUID);

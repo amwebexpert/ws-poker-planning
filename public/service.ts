@@ -34,7 +34,7 @@ class PokerPlanningService {
 
     handleMessage(roomUUID: string, value: string) {
         const message = JSON.parse(`${value}`) as UserMessage;
-        // console.log('Server side onMessage:::', { roomUUID, message });
+        console.log('Server side handleMessage', { roomUUID, message });
 
         const room = this.rooms.get(roomUUID);
         if (!room) {
