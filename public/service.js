@@ -15,6 +15,9 @@ var PokerPlanningService = /** @class */ (function () {
         room.members.add(socket);
         socket.on('message', function (value) { return _this.handleMessage(roomUUID, value); });
         socket.on('close', function () { return _this.close(roomUUID, socket); });
+        // send current state
+        var data = JSON.stringify(room.state.estimates);
+        socket.send(data);
     };
     PokerPlanningService.prototype.createRoom = function (roomUUID) {
         return {

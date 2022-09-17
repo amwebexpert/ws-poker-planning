@@ -15,6 +15,10 @@ class PokerPlanningService {
 
         socket.on('message', (value: string) => this.handleMessage(roomUUID, value));
         socket.on('close', () => this.close(roomUUID, socket));
+
+        // send current state
+        const data = JSON.stringify(room.state.estimates);
+        socket.send(data);
     }
 
     private createRoom(roomUUID: string): Room {

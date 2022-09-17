@@ -1,52 +1,21 @@
 <!doctype html>
 <html lang="en">
-<title>Simple WebSocket demo</title>
+<title>Poker Planning server</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <body>
 
-<div>
-  Target server: <span id="url"></span>
-</div>
+<h3>Poker Planning server</h3>
 
-<form name="publish">
-  <input type="text" name="message" maxlength="50"/>
-  <input type="submit" value="Send"/>
-</form>
+<p>The poker planning WebSockets server is started. You can now refer it's name the Web Toolbox</p>
+<div>Poker planning server hostname: <code><span id="hostname"></span></code></div>
 
-<br />
-<br />
-<div id="messages"></div>
+<ul>
+  <i><a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning">Web Toolbox - Poker Planning</a></i>
+</ul>
 
 <script>
-  const url = location.host == 'localhost' ? 'ws://localhost/ws' : 'wss://poc-flutter-03-server.herokuapp.com/ws';
-  document.getElementById('url').prepend(url);
-
-  let socket = new WebSocket(url);
-
-  // send message from the form
-  document.forms.publish.onsubmit = function() {
-    const outgoingMessage = this.message.value;
-    this.message.value = '';
-
-    socket.send(JSON.stringify({username: outgoingMessage}));
-    return false;
-  };
-
-  // handle incoming messages
-  socket.onmessage = function(event) {
-    let incomingMessage = event.data;
-    showMessage(incomingMessage);
-  };
-
-  socket.onclose = event => console.log(`Closed ${event.code}`);
-
-  // show message in div#messages
-  function showMessage(message) {
-    let messageElem = document.createElement('div');
-    messageElem.textContent = message;
-    document.getElementById('messages').prepend(messageElem);
-  }
+  document.getElementById('hostname').innerText = location.host;
 </script>
 
 </body>
