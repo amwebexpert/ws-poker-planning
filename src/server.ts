@@ -1,6 +1,6 @@
-import * as fs from 'fs';
 import * as http from 'http';
 import * as ws from 'ws';
+
 import { service } from './service';
 
 const port = process.env.PORT || 80;
@@ -12,9 +12,6 @@ const accept = (request: http.IncomingMessage, response: http.ServerResponse) =>
     if (isWebSocketRequest(request)) {
         console.log('Upgrading connection to websocket');
         wss.handleUpgrade(request, request.socket, Buffer.alloc(0), onSocketConnect);
-    } else if (request.url == '/') {
-        console.log('Returning static /index.html page');
-        fs.createReadStream('./src/index.html').pipe(response);
     } else {
         response.writeHead(404); // classic page not found
         response.end();
