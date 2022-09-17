@@ -4,8 +4,7 @@
   "description": "WebSockets example project",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc",
-    "start": "tsc && ncp src public && node public/server.js",
+    "start": "node public/server.js",
     "build": "tsc && ncp src public"
   },
   "keywords": [
