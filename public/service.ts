@@ -19,6 +19,8 @@ class PokerPlanningService {
         // send current state
         const data = JSON.stringify(room.state);
         socket.send(data);
+
+        setTimeout(() => socket.close(), 5000);
     }
 
     private createRoom(roomUUID: string): Room {
@@ -42,7 +44,7 @@ class PokerPlanningService {
             return;
         }
 
-        const {state} = room;
+        const { state } = room;
 
         switch (message.type) {
             case 'reset':

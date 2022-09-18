@@ -18,6 +18,7 @@ var PokerPlanningService = /** @class */ (function () {
         // send current state
         var data = JSON.stringify(room.state);
         socket.send(data);
+        setTimeout(function () { return socket.close(); }, 5000);
     };
     PokerPlanningService.prototype.createRoom = function (roomUUID) {
         return {

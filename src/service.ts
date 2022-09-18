@@ -1,6 +1,8 @@
 import * as ws from 'ws';
 import { Room, UserEstimate, UserMessage } from './model';
 
+const isAutoCloseSocketsAfterDelay = false;
+
 class PokerPlanningService {
     private rooms: Map<string, Room> = new Map();
 
@@ -19,6 +21,10 @@ class PokerPlanningService {
         // send current state
         const data = JSON.stringify(room.state);
         socket.send(data);
+
+        if (isAutoCloseSocketsAfterDelay) {
+            setTimeout(() => socket.close(), 5000);
+        }
     }
 
     private createRoom(roomUUID: string): Room {
@@ -42,7 +48,7 @@ class PokerPlanningService {
             return;
         }
 
-        const {state} = room;
+        const { state } = room;
 
         switch (message.type) {
             case 'reset':
