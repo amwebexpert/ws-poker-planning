@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as ws from 'ws';
+import { URL } from 'url';
 import { service } from './service';
 
 const port = process.env.PORT || 80;
@@ -29,17 +30,15 @@ const isWebSocketRequest = (request: http.IncomingMessage): boolean =>
     request.headers.upgrade?.toLowerCase() === 'websocket' &&
     /\bupgrade\b/i.test(request.headers.connection ?? ''); // can be Connection: keep-alive, Upgrade
 
-const getRoomUUID = (request: http.IncomingMessage): string => {
-    if (!request.url || !request.url.includes('?') || !request.url.includes('roomUUID=')) {
-        return 'default';
-    }
+const getSearchParams = ({ url }: http.IncomingMessage): URLSearchParams =>
+    url ? new URL(url, 'https://localhost').searchParams : new URLSearchParams();
 
-    const roomUUID = request.url.split('?roomUUID=')[1];
-    return roomUUID;
+const onSocketConnect = (socket: ws.WebSocket, request: http.IncomingMessage) => {
+    const searchParams = getSearchParams(request);
+    const roomUUID = searchParams.get('roomUUID') ?? 'default';
+
+    service.addClient(roomUUID, socket);
 };
-
-const onSocketConnect = (socket: ws.WebSocket, request: http.IncomingMessage) =>
-    service.addClient(getRoomUUID(request), socket);
 
 console.log('Starting the server. Listening on port ', port);
 http.createServer(accept).listen(port);
