@@ -17,7 +17,7 @@ export type Room = {
     state: PokerPlanningSession;
 };
 
-export type MessageType = 'reset' | 'vote';
+export type MessageType = 'reset' | 'vote' | 'remove';
 
 export type UserMessage = {
     type: MessageType;

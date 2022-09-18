@@ -49,15 +49,19 @@ class PokerPlanningService {
         }
 
         const { state } = room;
+        state.lastUpdate = new Date();
 
         switch (message.type) {
             case 'reset':
-                state.lastUpdate = new Date();
                 state.estimates = state.estimates.map(e => ({ username: e.username }));
                 break;
 
+            case 'remove':
+                const userToRemove: string = message.payload as string;
+                state.estimates = state.estimates.filter(e => e.username !== userToRemove);
+                break;
+
             case 'vote':
-                state.lastUpdate = new Date();
                 const newEstimate = message.payload as UserEstimate;
                 const oldEstimateIndex = state.estimates.findIndex(e => e.username === newEstimate.username);
                 if (oldEstimateIndex === -1) {

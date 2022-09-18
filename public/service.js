@@ -42,13 +42,16 @@ var PokerPlanningService = /** @class */ (function () {
             return;
         }
         var state = room.state;
+        state.lastUpdate = new Date();
         switch (message.type) {
             case 'reset':
-                state.lastUpdate = new Date();
                 state.estimates = state.estimates.map(function (e) { return ({ username: e.username }); });
                 break;
+            case 'remove':
+                var userToRemove_1 = message.payload;
+                state.estimates = state.estimates.filter(function (e) { return e.username !== userToRemove_1; });
+                break;
             case 'vote':
-                state.lastUpdate = new Date();
                 var newEstimate_1 = message.payload;
                 var oldEstimateIndex = state.estimates.findIndex(function (e) { return e.username === newEstimate_1.username; });
                 if (oldEstimateIndex === -1) {
