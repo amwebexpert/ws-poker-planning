@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.service = void 0;
+var isAutoCloseSocketsAfterDelay = false;
 var PokerPlanningService = /** @class */ (function () {
     function PokerPlanningService() {
         this.rooms = new Map();
@@ -18,7 +19,9 @@ var PokerPlanningService = /** @class */ (function () {
         // send current state
         var data = JSON.stringify(room.state);
         socket.send(data);
-        setTimeout(function () { return socket.close(); }, 5000);
+        if (isAutoCloseSocketsAfterDelay) {
+            setTimeout(function () { return socket.close(); }, 5000);
+        }
     };
     PokerPlanningService.prototype.createRoom = function (roomUUID) {
         return {
