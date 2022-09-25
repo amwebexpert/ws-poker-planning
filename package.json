@@ -1,17 +1,30 @@
 {
-  "name": "web-sockets-example",
+  "name": "ws-poker-planning",
   "version": "1.0.0",
-  "description": "WebSockets example project",
-  "main": "index.js",
-  "scripts": {
-    "start": "node public/server.js",
-    "build": "tsc && ncp src public"
-  },
-  "keywords": [
-    "websocket"
-  ],
+  "description": "Poker planning WebSocket server",
+  "homepage": "https://github.com/amwebexpert/ws-poker-planning#readme",
   "author": "amwebexpert@gmail.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amwebexpert/ws-poker-planning.git"
+  },
+  "keywords": [
+    "node.js",
+    "websocket",
+    "typescript",
+    "javascript"
+  ],
+  "bugs": {
+    "url": "https://github.com/amwebexpert/ws-poker-planning/issues"
+  },
+  "main": "dist/server.js",
+  "bin": "dist/server.js",
+  "files": ["dist"],
+  "scripts": {
+    "start": "node dist/server.js",
+    "build": "tsc && ncp public dist"
+  },
   "dependencies": {
     "typescript": "^4.8.3",
     "ws": "^8.8.1"

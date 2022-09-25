@@ -1,14 +1,19 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "sourceMap": true,
-    "strict": true,
-    "outDir": "./public",
-    "rootDir": "./src",
-    "noEmitOnError": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
-  }
+    "compilerOptions": {
+        "target": "esnext",
+        "lib": ["dom", "esnext"],
+        "module": "commonjs",
+        "strict": true,
+        "sourceMap": true,
+        "declaration": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "rootDir": "./src",
+        "noEmitOnError": true,
+        "declarationDir": "./dist",
+        "outDir": "./dist",
+        "typeRoots": ["node_modules/@types", "@types"]
+    }
 }
