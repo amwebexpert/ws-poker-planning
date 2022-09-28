@@ -1,7 +1,5 @@
 import * as ws from 'ws';
 
-export const APP_VERSION = process.env.npm_package_version ?? 'NA';
-
 export type UserEstimate = {
     username: string;
     estimate?: string;

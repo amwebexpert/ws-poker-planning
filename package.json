@@ -24,9 +24,10 @@
     "dist"
   ],
   "scripts": {
-    "start": "node dist/server.js",
     "clean": "rimraf dist",
-    "build": "tsc && ncp public dist"
+    "generate:version": "node scripts/generate-version",
+    "build": "npm run generate:version && tsc && ncp public dist",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "typescript": "^4.8.3",

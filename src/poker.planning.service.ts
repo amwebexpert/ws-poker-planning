@@ -1,5 +1,6 @@
 import * as ws from 'ws';
-import { APP_VERSION, Room, UserEstimate, UserMessage } from './model';
+import { APP_VERSION_INFO } from './app.version.constants';
+import { Room, UserEstimate, UserMessage } from './model';
 
 const isAutoCloseSocketsAfterDelay = false;
 
@@ -32,7 +33,7 @@ class PokerPlanningService {
             uuid: roomUUID,
             members: new Set(),
             state: {
-                version: APP_VERSION,
+                version: APP_VERSION_INFO.VERSION,
                 lastUpdate: new Date(),
                 estimates: [],
             },
