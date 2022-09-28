@@ -3,7 +3,6 @@ import * as http from 'http';
 import * as ws from 'ws';
 import { URL } from 'url';
 import { pokerPlanningService } from './poker.planning.service';
-import { APP_VERSION } from './model';
 import { LONG_VERSION_DATE } from './app.version.constants';
 
 const port = process.env.PORT || 80;
