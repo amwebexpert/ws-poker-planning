@@ -2,13 +2,19 @@
 
 Server for handling agile pocker planning sessions communications through WebSocket clients
 
-### Production deployment
+## Build and start
 
-- N/A (yet)
+    npm run clean
+    npm run build
+    npm start
 
 ### Localhost deployment
 
 - ws://localhost/ws
+
+### Production deployment(s)
+
+- ws-poker-planning.onrender.com
 
 ### References
 

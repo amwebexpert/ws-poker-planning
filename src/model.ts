@@ -1,5 +1,7 @@
 import * as ws from 'ws';
 
+export const APP_VERSION = process.env.npm_package_version ?? 'NA';
+
 export type UserEstimate = {
     username: string;
     estimate?: string;
@@ -7,6 +9,7 @@ export type UserEstimate = {
 };
 
 export type PokerPlanningSession = {
+    version: string;
     lastUpdate: Date;
     estimates: UserEstimate[];
 };
@@ -19,7 +22,7 @@ export type Room = {
 
 export type MessageType = 'reset' | 'vote' | 'remove';
 
-export type UserMessage = {
+export type UserMessage<TPayload = unknown> = {
     type: MessageType;
-    payload?: unknown;
+    payload?: TPayload;
 };

@@ -2,7 +2,8 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as ws from 'ws';
 import { URL } from 'url';
-import { service } from './service';
+import { pokerPlanningService } from './poker.planning.service';
+import { APP_VERSION } from './model';
 
 const port = process.env.PORT || 80;
 const wss = new ws.Server({ noServer: true });
@@ -37,8 +38,8 @@ const onSocketConnect = (socket: ws.WebSocket, request: http.IncomingMessage) =>
     const searchParams = getSearchParams(request);
     const roomUUID = searchParams.get('roomUUID') ?? 'default';
 
-    service.addClient(roomUUID, socket);
+    pokerPlanningService.addClient(roomUUID, socket);
 };
 
-console.log('Starting the server. Listening on port ', port);
+console.log(`Starting the WebSockets server version ${APP_VERSION}. Listening on port ${port}`);
 http.createServer(accept).listen(port);

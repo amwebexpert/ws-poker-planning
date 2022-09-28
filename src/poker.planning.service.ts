@@ -1,5 +1,5 @@
 import * as ws from 'ws';
-import { Room, UserEstimate, UserMessage } from './model';
+import { APP_VERSION, Room, UserEstimate, UserMessage } from './model';
 
 const isAutoCloseSocketsAfterDelay = false;
 
@@ -32,6 +32,7 @@ class PokerPlanningService {
             uuid: roomUUID,
             members: new Set(),
             state: {
+                version: APP_VERSION,
                 lastUpdate: new Date(),
                 estimates: [],
             },
@@ -92,4 +93,4 @@ class PokerPlanningService {
     }
 }
 
-export const service = new PokerPlanningService();
+export const pokerPlanningService = new PokerPlanningService();
