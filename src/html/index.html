@@ -11,23 +11,25 @@
 <div>Poker planning server hostname: <code><span id="hostname"></span></code></div>
 
 <ul>
-  <i><a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning">Web Toolbox - Poker Planning</a></i>
+  <li><a href="http://localhost:3000/#/PokerPlanning">Web Toolbox - Poker Planning on LOCALHOST</a></li>
+  <li><a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning">Web Toolbox - Poker Planning on GitHub Pages</a></li>
 </ul>
 
-<div>Target web socket server: <span id="url"></span></div>
+<hr />
 
 <form name="publish">
-    Estimate: <input type="text" name="message" id="message" value="4" />
-    <input type="button" value="Send" onclick="submitVote()" />
+  <div>Username: <input type="text" name="username" id="username" value="John Smith" /></div>
+  <div>Estimate: <input type="number" name="message" id="message" value="4" /></div>
+
+  <input type="button" value="Send" onclick="submitVote()" />
 </form>
 
-<br />
-<br />
+<hr />
+
 <div id="messages"></div>
 
 <script>
     const url = location.host == 'localhost:8080' ? 'ws://localhost:8080/ws' : 'wss://ws-poker-planning.herokuapp.com/ws';
-    document.getElementById('url').prepend(url);
     document.getElementById('hostname').innerText = url;
 
     let socket = new WebSocket(url);
@@ -52,9 +54,9 @@
         const outgoingMessage = {
             type: 'vote',
             payload: {
-                username: 'JohnDoe',
+                username: document.getElementById('username').value,
                 estimate: document.getElementById('message').value,
-                estimatedAt: '2022-10-25T11:28:35.009Z',
+                estimatedAt: new Date().toISOString(),
             },
         };
 
