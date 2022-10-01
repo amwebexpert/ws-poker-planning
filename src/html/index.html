@@ -1,69 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<title>Poker Planning server</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Poker Planning server</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script
+        src="//unpkg.com/json-format-highlight@1.0.1/dist/json-format-highlight.js"
+        type="text/javascript"
+        charset="utf-8"></script>
 
-<body>
+    <body>
+        <h3>Poker Planning server</h3>
 
-<h3>Poker Planning server</h3>
+        <p>The poker planning WebSockets server is started. You can now refer it's name the Web Toolbox (see links below)</p>
+        <div>
+            Poker planning server hostname: <code><span id="hostname"></span></code>
+        </div>
 
-<p>The poker planning WebSockets server is started. You can now refer it's name the Web Toolbox</p>
-<div>Poker planning server hostname: <code><span id="hostname"></span></code></div>
+        <ul>
+            <li><a href="http://localhost:3000/#/PokerPlanning">Poker Planning on LOCALHOST</a></li>
+            <li>
+                <a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning">Poker Planning on GitHub Pages</a>
+            </li>
+        </ul>
 
-<ul>
-  <li><a href="http://localhost:3000/#/PokerPlanning">Web Toolbox - Poker Planning on LOCALHOST</a></li>
-  <li><a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning">Web Toolbox - Poker Planning on GitHub Pages</a></li>
-</ul>
+        <hr />
 
-<hr />
+        <form>
+            <div><input type="text" name="username" id="username" value="John Smith" placeholder="Username" /></div>
+            <div><input type="number" name="message" id="message" value="4" placeholder="Estimate" /></div>
 
-<form name="publish">
-  <div>Username: <input type="text" name="username" id="username" value="John Smith" /></div>
-  <div>Estimate: <input type="number" name="message" id="message" value="4" /></div>
+            <br />
 
-  <input type="button" value="Send" onclick="submitVote()" />
-</form>
+            <div><input type="button" value="Submit vote" onclick="submitVote()" /></div>
+            <div><input type="button" value="Clear all vote" onclick="clearAllVotes()" /></div>
+        </form>
 
-<hr />
+        <hr />
 
-<div id="messages"></div>
+        <ul id="messages"></div>
 
-<script>
-    const url = location.host == 'localhost:8080' ? 'ws://localhost:8080/ws' : 'wss://ws-poker-planning.herokuapp.com/ws';
-    document.getElementById('hostname').innerText = url;
+        <script>
+            const url =
+                location.host == 'localhost:8080'
+                    ? 'ws://localhost:8080/ws'
+                    : 'wss://ws-poker-planning.herokuapp.com/ws';
+            document.getElementById('hostname').innerText = url;
 
-    let socket = new WebSocket(url);
+            let socket = new WebSocket(url);
 
-    // handle incoming messages
-    socket.onmessage = function (event) {
-        let incomingMessage = event.data;
-        showMessage(incomingMessage);
-    };
+            // handle incoming messages
+            socket.onmessage = function (event) {
+                let incomingMessage = event.data;
+                showMessage(incomingMessage);
+            };
 
-    socket.onclose = event => console.log(`Closed ${event.code}`);
+            socket.onclose = event => console.log(`Closed ${event.code}`);
 
-    // show message in div#messages
-    function showMessage(message) {
-        let messageElem = document.createElement('div');
-        messageElem.textContent = message;
-        document.getElementById('messages').prepend(messageElem);
-    }
+            // show message in div#messages
+            function showMessage(message) {
+                let messageElem = document.createElement('li');
+                messageElem.innerHTML = jsonFormatHighlight(message);
+                document.getElementById('messages').prepend(messageElem);
+            }
 
-    // send message from the form
-    function submitVote() {
-        const outgoingMessage = {
-            type: 'vote',
-            payload: {
-                username: document.getElementById('username').value,
-                estimate: document.getElementById('message').value,
-                estimatedAt: new Date().toISOString(),
-            },
-        };
+            // send message from the form
+            function submitVote() {
+                const outgoingMessage = {
+                    type: 'vote',
+                    payload: {
+                        username: document.getElementById('username').value,
+                        estimate: document.getElementById('message').value,
+                        estimatedAt: new Date().toISOString(),
+                    },
+                };
 
-        socket.send(JSON.stringify(outgoingMessage));
-        return false;
-    }
-</script>
+                socket.send(JSON.stringify(outgoingMessage));
+            }
 
-</body>
+            function clearAllVotes() {
+                const outgoingMessage = { type: 'reset' };
+                socket.send(JSON.stringify(outgoingMessage));
+            }
+      </script>
+    </body>
 </html>
