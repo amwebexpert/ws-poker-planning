@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<title>Poker Planning server</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<body>
+
+<h3>Poker Planning server</h3>
+
+<p>The poker planning WebSockets server is started. You can now refer it's name the Web Toolbox</p>
+<div>Poker planning server hostname: <code><span id="hostname"></span></code></div>
+
+<ul>
+  <i><a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning">Web Toolbox - Poker Planning</a></i>
+</ul>
+
+<div>Target web socket server: <span id="url"></span></div>
+
+<form name="publish">
+    Estimate: <input type="text" name="message" id="message" value="4" />
+    <input type="button" value="Send" onclick="submitVote()" />
+</form>
+
+<br />
+<br />
+<div id="messages"></div>
+
+<script>
+    const url = location.host == 'localhost:8080' ? 'ws://localhost:8080/ws' : 'wss://ws-poker-planning.herokuapp.com/ws';
+    document.getElementById('url').prepend(url);
+    document.getElementById('hostname').innerText = url;
+
+    let socket = new WebSocket(url);
+
+    // handle incoming messages
+    socket.onmessage = function (event) {
+        let incomingMessage = event.data;
+        showMessage(incomingMessage);
+    };
+
+    socket.onclose = event => console.log(`Closed ${event.code}`);
+
+    // show message in div#messages
+    function showMessage(message) {
+        let messageElem = document.createElement('div');
+        messageElem.textContent = message;
+        document.getElementById('messages').prepend(messageElem);
+    }
+
+    // send message from the form
+    function submitVote() {
+        const outgoingMessage = {
+            type: 'vote',
+            payload: {
+                username: 'JohnDoe',
+                estimate: document.getElementById('message').value,
+                estimatedAt: '2022-10-25T11:28:35.009Z',
+            },
+        };
+
+        socket.send(JSON.stringify(outgoingMessage));
+        return false;
+    }
+</script>
+
+</body>
+</html>

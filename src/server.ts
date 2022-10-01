@@ -1,9 +1,10 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import * as http from 'http';
 import * as ws from 'ws';
 import { URL } from 'url';
 import { pokerPlanningService } from './poker.planning.service';
-import { LONG_VERSION_DATE } from './app.version.constants';
+import { LONG_VERSION_DATE } from './constants';
 
 const port = process.env.PORT || 8080;
 const wss = new ws.Server({ noServer: true });
@@ -15,11 +16,8 @@ const accept = (request: http.IncomingMessage, response: http.ServerResponse) =>
         console.log('Upgrading connection to websocket');
         wss.handleUpgrade(request, request.socket, Buffer.alloc(0), onSocketConnect);
     } else if (request.url == '/') {
-        console.log('Returning static /index.html page');
-        fs.createReadStream('./src/index.html').pipe(response);
-    } else if (request.url == '/test.html') {
-        console.log('Returning static /test.html page');
-        fs.createReadStream('./src/test.html').pipe(response);
+        const htmlFile = path.join(__dirname, 'html', 'index.html');
+        fs.createReadStream(htmlFile).pipe(response);
     } else {
         response.writeHead(404); // classic page not found
         response.end();

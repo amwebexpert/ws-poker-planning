@@ -1,5 +1,5 @@
 import * as ws from 'ws';
-import { APP_VERSION_INFO } from './app.version.constants';
+import { APP_VERSION_INFO } from './constants';
 import { Room, UserEstimate, UserMessage } from './model';
 
 const isAutoCloseSocketsAfterDelay = false;

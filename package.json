@@ -1,6 +1,6 @@
 {
   "name": "ws-poker-planning",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Poker planning WebSocket server",
   "homepage": "https://github.com/amwebexpert/ws-poker-planning#readme",
   "author": "amwebexpert@gmail.com",
@@ -26,7 +26,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "generate:version": "node scripts/generate-version",
-    "build": "npm run generate:version && tsc && ncp public dist",
+    "build": "npm run clean && npm run generate:version && tsc && ncp src/html dist/html",
     "start": "node dist/server.js",
     "start:dev": "ts-node-dev ./src/server.ts --respawn --transpileOnly"
   },
