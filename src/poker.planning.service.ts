@@ -34,7 +34,7 @@ class PokerPlanningService {
             members: new Set(),
             state: {
                 version: APP_VERSION_INFO.VERSION,
-                lastUpdate: new Date(),
+                lastUpdateISO8601: new Date().toISOString(),
                 estimates: [],
             },
         };
@@ -51,7 +51,7 @@ class PokerPlanningService {
         }
 
         const { state } = room;
-        state.lastUpdate = new Date();
+        state.lastUpdateISO8601 = new Date().toISOString();
 
         switch (message.type) {
             case 'reset':

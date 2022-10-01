@@ -3,12 +3,12 @@ import * as ws from 'ws';
 export type UserEstimate = {
     username: string;
     estimate?: string;
-    estimatedAt?: Date;
+    estimatedAtISO8601?: string;
 };
 
 export type PokerPlanningSession = {
     version: string;
-    lastUpdate: Date;
+    lastUpdateISO8601: string;
     estimates: UserEstimate[];
 };
 
