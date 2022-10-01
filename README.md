@@ -1,20 +1,63 @@
-# WSPockerPlanning
+# WSPokerPlanning
 
-Server for handling agile pocker planning sessions communications through WebSocket clients
+Poker planning sessions server handing communications through WebSocket. Once this server is started, it manages an in-memory map of rooms with connected socket clients. Sockets clients can specify a roomUUID and once connected all messages are private to that room.
 
-## Build and start
+1. the client side connects through a web socket URL and specify a roomUUID param. Example: `ws://localhost:8080/ws?roomUUID=xxxyyyzzz`
+1. the server upgrades the connection to a full duplex web socket channel and reply with the whole room current state
+1. the client socket can then:
+   - emit a message to update the room state by using `socket.send()`
+   - receive room updates asynchrously through the `socket.onmessage()`
 
-    npm run clean
+## Build and start (production mode)
+
     npm run build
     npm start
 
-### Localhost deployment
+## Start in development mode (with hot reload)
 
-- ws://localhost/ws
+    npm run start:dev
 
-### Production deployment(s)
+## Localhost deployment
 
-- ws-poker-planning.onrender.com
+If the `process.env.PORT` is undefined the default port becomes `8080`
+
+- ws://localhost:8080/ws
+
+## Production deployment(s)
+
+The app is a pure Node.js implementation so it's easy to deploy on public cloud engines like [Heroku](https://heroku.com/). You can deploy and start the app locally for testing purpose, but if you want real live web sockets support we suggest a deployment on:
+
+- your own enterprise internal servers where all your VPN connected users can see the running server
+- cloud solutions providers like AWS, GCP or Azure
+
+As a proof of concept I've deployed the app at `ws-poker-planning.herokuapp.com` but starting November 28, 2022, free Heroku Dynos plans will no longer be available, so the following server will be shut down permanently:
+
+- ws-poker-planning.herokuapp.com
+
+## Full poker planning client app
+
+The [Web Toolbox](https://amwebexpert.github.io/etoolbox/#/PokerPlanning) includes a full front end implementation of the Poker planning session. To start a poker planning session:
+
+- ensure the server is up and running
+- open the [Web Toolbox](https://amwebexpert.github.io/etoolbox/#/PokerPlanning) UI
+- type the hostname:portnumber inside the `Server` field. No need to provide the port if it's the default one (`80` for `http` or `443` for `https`). For instance:
+  - `ws-poker-planning.herokuapp.com`
+- type the name of your team inside the `Team name` field
+- type your username in the corresponding field
+- press the share button so the full poker planning session link can be shared with other team members
+- the resulting link is going to include the generated room number, the server, and the team name so it can be safely bookmarked for future poker planning sessions
+
+## Full poker planning client app and server on LOCALHOST
+
+The [Web Toolbox github project]() explains how to start the single page app locally at [http://localhost:3000/#/PokerPlanning](http://localhost:3000/#/PokerPlanning). Once this app is started, you can then start a poker planning session server as follow:
+
+- ensure the server is up and running by running `npm run start:dev`
+- open the UI locally at [http://localhost:3000/#/PokerPlanning](http://localhost:3000/#/PokerPlanning)
+- type `localhost:8080` inside the `Server` field
+- populate the name of your team inside the `Team name` field
+- type your username in the corresponding field
+- press the `JOIN` button
+
 
 ### References
 

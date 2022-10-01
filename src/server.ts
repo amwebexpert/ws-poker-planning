@@ -4,9 +4,9 @@ import * as http from 'http';
 import * as ws from 'ws';
 import { URL } from 'url';
 import { pokerPlanningService } from './poker.planning.service';
-import { LONG_VERSION_DATE } from './constants';
+import { APP_VERSION_INFO, LONG_VERSION_DATE } from './constants';
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT ?? 8080;
 const wss = new ws.Server({ noServer: true });
 
 const accept = (request: http.IncomingMessage, response: http.ServerResponse) => {
@@ -39,5 +39,5 @@ const onSocketConnect = (socket: ws.WebSocket, request: http.IncomingMessage) =>
     pokerPlanningService.addClient(roomUUID, socket);
 };
 
-console.log(`Starting the WebSockets server version ${LONG_VERSION_DATE}. Listening on port ${port}`);
+console.log(`Starting the ${APP_VERSION_INFO.NAME} app v${LONG_VERSION_DATE}. Listening on port ${port}`);
 http.createServer(accept).listen(port);
