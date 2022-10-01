@@ -5,7 +5,7 @@ import { URL } from 'url';
 import { pokerPlanningService } from './poker.planning.service';
 import { LONG_VERSION_DATE } from './app.version.constants';
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8080;
 const wss = new ws.Server({ noServer: true });
 
 const accept = (request: http.IncomingMessage, response: http.ServerResponse) => {
