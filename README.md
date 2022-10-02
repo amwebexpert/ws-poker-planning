@@ -23,16 +23,17 @@ If the `process.env.PORT` is undefined the default port becomes `8080`
 
 - ws://localhost:8080/ws
 
-## Production deployment(s)
+## WSPokerPlanning server production deployment
 
-The app is a pure Node.js implementation so it's easy to deploy on public cloud engines like [Heroku](https://heroku.com/). You can deploy and start the app locally for testing purpose, but if you want real live web sockets support we suggest a deployment on:
+The `ws-poker-planning` server is a pure `Node.js` backend app that can be easyly deployed on public cloud engines like [Heroku](https://heroku.com/). You can deploy and start the app locally for testing purpose, but if you want real live web sockets support we suggest a deployment on:
 
 - your own enterprise internal servers where all your VPN connected users can see the running server
-- cloud solutions providers like AWS, GCP or Azure
+- cloud solutions providers like `AWS`, `GCP`, `Azure`...
 
-As a proof of concept I've deployed the app at `ws-poker-planning.herokuapp.com` but starting November 28, 2022, free Heroku Dynos plans will no longer be available, so the following server will be shut down permanently:
+As a proof of concept the app has been deployed at the following location: `ws-poker-planning.herokuapp.com`. However starting November 28, 2022, free Heroku Dynos plans will no longer be available, so this deployment server will be shut down permanently. We strongly suggest to deploy it on your own internal server because:
 
-- ws-poker-planning.herokuapp.com
+- all your poker planning sessions are going to be private (only visible through your VPN for instance)
+- you can still take advantages of the full poker planning client app (see below) since the hostname and port are just a configuration
 
 ## Full poker planning client app
 
