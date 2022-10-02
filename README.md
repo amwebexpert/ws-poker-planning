@@ -52,7 +52,7 @@ The [Web Toolbox](https://amwebexpert.github.io/etoolbox/#/PokerPlanning) includ
 
 The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally) GitHub project explains how to start the single page app locally. Once this app is started, you can then start a poker planning session server as follow:
 
-- ensure the server is up and running by running `npm run start:dev` which is going to start the server on `localhost:8080`
+- ensure the server is up and running by executing `npm run start:dev` which is going to start the server on `localhost:8080`
 - open the UI locally at [http://localhost:3000/#/PokerPlanning](http://localhost:3000/#/PokerPlanning)
 - type `localhost:8080` inside the `Server` field
 - populate the name of your team inside the `Team name` field
