@@ -6,8 +6,10 @@ import { URL } from 'url';
 import { pokerPlanningService } from './poker.planning.service';
 import { APP_VERSION_INFO, LONG_VERSION_DATE } from './constants';
 
-const port = process.env.PORT ?? 8080;
+// Websockets are established using a specific HTTP request which is “upgraded”. If we don’t specify noServer then the
+// Websocket server will create a HTTP server to handle the upgrade of the browser’s HTTP request to a websocket connection.
 const wss = new ws.Server({ noServer: true });
+const port = process.env.PORT ?? 8080;
 
 const accept = (request: http.IncomingMessage, response: http.ServerResponse) => {
     console.log('Accepting an incoming connection');
