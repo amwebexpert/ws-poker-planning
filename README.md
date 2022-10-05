@@ -59,10 +59,17 @@ The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally)
 - type your username in the corresponding field
 - press the `JOIN` button
 
+## Roadmap
+
+- add an automatic cleanup of old rooms, based on lastUpdateISO8601 poker session attribute
+  - send close signal on each socket of the room?
+- add ability to become a room master (the one having more rights on UI side, like being able to remove members)
+
 
 ### References
 
 - [WebSocket explained](https://javascript.info/websocket)
+- [For a SPA push notification, is a websocket mandatory?](https://stackoverflow.com/questions/31035467/for-a-push-notification-is-a-websocket-mandatory)
 - [Deploying a Node.js server with WebSockets on a free hosting Heroku](https://www.gamedev.net/blogs/entry/2272759-deploying-a-nodejs-server-with-websockets-on-a-free-hosting-heroku-web-desktop-clients-qt/)
 - [Express WS service example](https://github.com/8Observer8/mouse-click-js)
 - [Socket.IO enables real-time bidirectional event-based communication](https://github.com/socketio/socket.io)
