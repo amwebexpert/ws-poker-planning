@@ -81,13 +81,12 @@ class PokerPlanningService {
     }
 
     close(roomUUID: string, socket: ws.WebSocket): void {
-        const room = this.rooms.get(roomUUID);
-        if (!room) {
-            return;
-        }
-
         socket.removeAllListeners();
-        room.sockets.delete(socket);
+
+        const room = this.rooms.get(roomUUID);
+        if (room) {
+            room.sockets.delete(socket);
+        }
     }
 }
 
