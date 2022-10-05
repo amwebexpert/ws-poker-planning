@@ -16,9 +16,10 @@
         </div>
 
         <ul>
-            <li><a href="http://localhost:3000/#/PokerPlanning" target="_blank" rel="noopener noreferrer">Poker Planning on LOCALHOST</a></li>
+            <li><a href="http://localhost:8080/">RAW Poker Planning on LOCALHOST</a></li>
+            <li><a href="http://localhost:3000/#/PokerPlanning" target="_blank" rel="noopener noreferrer">Web Toolbox - Poker Planning on LOCALHOST</a></li>
             <li>
-                <a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning" target="_blank" rel="noopener noreferrer">Poker Planning on GitHub Pages</a>
+                <a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning" target="_blank" rel="noopener noreferrer">Web Toolbox - Poker Planning on GitHub Pages</a>
             </li>
         </ul>
 
@@ -39,10 +40,8 @@
         <ul id="messages"></div>
 
         <script>
-            const url =
-                location.host == 'localhost:8080'
-                    ? 'ws://localhost:8080/ws'
-                    : 'wss://ws-poker-planning.herokuapp.com/ws';
+            const {hostname, port} = document.location;
+            const url = hostname === 'localhost' ? `ws://${hostname}:${port}/ws` : `wss://${hostname}/ws`;
             document.getElementById('hostname').innerText = url;
 
             let socket = new WebSocket(url);
@@ -69,7 +68,7 @@
                     payload: {
                         username: document.getElementById('username').value,
                         estimate: document.getElementById('message').value,
-                        estimatedAt: new Date().toISOString(),
+                        estimatedAtISO8601: new Date().toISOString(),
                     },
                 };
 

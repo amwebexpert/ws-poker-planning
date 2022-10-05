@@ -14,14 +14,11 @@ class PokerPlanningService {
         }
 
         const room = this.rooms.get(roomUUID)!;
-        room.members.add(socket);
+        room.sockets.add(socket);
 
         socket.on('message', (value: string) => this.handleMessage(roomUUID, value));
         socket.on('close', () => this.close(roomUUID, socket));
-
-        // send current state
-        const data = JSON.stringify(room.state);
-        socket.send(data);
+        socket.send(JSON.stringify(room.state));
 
         if (isAutoCloseSocketsAfterDelay) {
             setTimeout(() => socket.close(), 5000);
@@ -31,7 +28,7 @@ class PokerPlanningService {
     private createRoom(roomUUID: string): Room {
         return {
             uuid: roomUUID,
-            members: new Set(),
+            sockets: new Set<ws.WebSocket>(),
             state: {
                 version: APP_VERSION_INFO.VERSION,
                 lastUpdateISO8601: new Date().toISOString(),
@@ -80,7 +77,7 @@ class PokerPlanningService {
 
         // broadcast state to all room members
         const data = JSON.stringify(state);
-        room.members.forEach(client => client.send(data));
+        room.sockets.forEach(client => client.send(data));
     }
 
     close(roomUUID: string, socket: ws.WebSocket): void {
@@ -90,7 +87,7 @@ class PokerPlanningService {
         }
 
         socket.removeAllListeners();
-        room.members.delete(socket);
+        room.sockets.delete(socket);
     }
 }
 

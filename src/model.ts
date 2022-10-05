@@ -14,7 +14,7 @@ export type PokerPlanningSession = {
 
 export type Room = {
     uuid: string;
-    members: Set<ws.WebSocket>;
+    sockets: Set<ws.WebSocket>;
     state: PokerPlanningSession;
 };
 
