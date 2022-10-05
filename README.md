@@ -75,3 +75,8 @@ The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally)
 - [Socket.IO enables real-time bidirectional event-based communication](https://github.com/socketio/socket.io)
 - [ReconnectingWebSocket](https://github.com/joewalnes/reconnecting-websocket/)
 - [GCP Using WebSockets](https://cloud.google.com/run/docs/triggering/websockets)
+
+### WebSocket could be used also on mobile app (iOS, Android…) as it is mature and well known
+
+- https://github.com/daltoniam/Starscream
+- https://square.github.io/okhttp/4.x/okhttp/okhttp3/-web-socket/
