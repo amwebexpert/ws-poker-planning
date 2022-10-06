@@ -41,5 +41,6 @@ const onSocketConnect = (socket: ws.WebSocket, request: http.IncomingMessage) =>
     pokerPlanningService.addClient(roomUUID, socket);
 };
 
-console.log(`Starting the ${APP_VERSION_INFO.NAME} app v${LONG_VERSION_DATE}. Listening on port ${port}`);
-http.createServer(accept).listen(port);
+console.log(`Starting the [${APP_VERSION_INFO.NAME}] v${LONG_VERSION_DATE} on port ${port}`);
+http.createServer(accept)
+    .listen(port, () => console.log(`\t==> started: awaiting incoming requests on port ${port}`));
