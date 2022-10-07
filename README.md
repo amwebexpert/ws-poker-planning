@@ -1,5 +1,8 @@
 # WSPokerPlanning
 
+
+![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/etoolbox) [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/amwebexpert/etoolbox/typescript)
+
 Poker planning sessions server handing communications through WebSocket. Once this server is started, it manages an in-memory map of rooms with connected socket clients. Sockets clients can specify a roomUUID and once connected all messages are private to that room.
 
 1. the client side connects through a web socket URL and specify a roomUUID param. Example: `ws://localhost:8080/ws?roomUUID=xxxyyyzzz`
