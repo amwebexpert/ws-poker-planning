@@ -1,7 +1,7 @@
 # WSPokerPlanning
 
 
-![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/etoolbox) [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/amwebexpert/etoolbox/typescript)
+![GitHub last commit](https://img.shields.io/github/last-commit/amwebexpert/ws-poker-planning) [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/amwebexpert/ws-poker-planning/typescript)
 
 Poker planning sessions server handing communications through WebSocket. Once this server is started, it manages an in-memory map of rooms with connected socket clients. Sockets clients can specify a roomUUID and once connected all messages are private to that room.
 
