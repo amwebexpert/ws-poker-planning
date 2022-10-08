@@ -17,7 +17,7 @@ const accept = (request: http.IncomingMessage, response: http.ServerResponse) =>
     if (isWebSocketRequest(request)) {
         console.log('Upgrading connection to websocket');
         wss.handleUpgrade(request, request.socket, Buffer.alloc(0), onSocketConnect);
-    } else if (request.url == '/') {
+    } else if (request.url === '/') {
         const htmlFile = path.join(__dirname, 'html', 'index.html');
         fs.createReadStream(htmlFile).pipe(response);
     } else {
