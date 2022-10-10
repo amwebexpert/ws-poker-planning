@@ -75,6 +75,7 @@ The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally)
 
 ### References
 
+- [ws: a Node.js WebSocket library](https://www.npmjs.com/package/ws)
 - [WebSocket explained](https://javascript.info/websocket)
 - [For a SPA push notification, is a websocket mandatory?](https://stackoverflow.com/questions/31035467/for-a-push-notification-is-a-websocket-mandatory)
 - [Deploying a Node.js server with WebSockets on a free hosting Heroku](https://www.gamedev.net/blogs/entry/2272759-deploying-a-nodejs-server-with-websockets-on-a-free-hosting-heroku-web-desktop-clients-qt/)
