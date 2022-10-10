@@ -64,6 +64,10 @@ The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally)
 
 ## Roadmap
 
+- add error handling:
+  - protection against malformed payloads
+  - add socket.on('error'): log detail and close socket
+- refactor handleMessage: split into small methods and promote immutability inside these methods
 - add an automatic cleanup of old rooms, based on lastUpdateISO8601 poker session attribute
   - send close signal on each socket of the room?
 - add ability to become a room master (the one having more rights on UI side, like being able to remove members)
