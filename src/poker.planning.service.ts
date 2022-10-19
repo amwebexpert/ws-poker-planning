@@ -38,6 +38,7 @@ class PokerPlanningService {
     }
 
     handleMessage(roomUUID: string, value: string) {
+        // TODO Add error handling here because value could be of the wrong JSON format
         const message = JSON.parse(`${value}`) as UserMessage;
         console.log('Server side handleMessage', { roomUUID, message });
 
