@@ -3,6 +3,7 @@ import { APP_VERSION_INFO } from './constants';
 import { Room, UserEstimate, UserMessage } from './model';
 
 const isAutoCloseSocketsAfterDelay = false;
+const INACTIVITY_DELAY_SECONDS = 60;
 
 class PokerPlanningService {
     private rooms: Map<string, Room> = new Map();
@@ -21,7 +22,9 @@ class PokerPlanningService {
         socket.send(JSON.stringify(room.state));
 
         if (isAutoCloseSocketsAfterDelay) {
-            setTimeout(() => socket.close(), 5000);
+            // auto-close socket after a given delay
+            // TODO the right approach would be to auto-close any "inactive socket"
+            setTimeout(() => socket.close(), INACTIVITY_DELAY_SECONDS * 1000);
         }
     }
 
