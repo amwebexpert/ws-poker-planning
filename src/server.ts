@@ -31,7 +31,7 @@ const isWebSocketRequest = (request: http.IncomingMessage): boolean =>
     request.headers.upgrade?.toLowerCase() === 'websocket' &&
     /\bupgrade\b/i.test(request.headers.connection ?? ''); // can be Connection: keep-alive, Upgrade
 
-const getSearchParams = ({ url }: http.IncomingMessage): URLSearchParams =>
+const getSearchParams = ({ url }: http.IncomingMessage) =>
     url ? new URL(url, 'https://localhost').searchParams : new URLSearchParams();
 
 const onSocketConnect = (socket: ws.WebSocket, request: http.IncomingMessage) => {

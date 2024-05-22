@@ -5,8 +5,8 @@
 export const APP_VERSION_INFO = Object.freeze({
   NAME: 'ws-poker-planning',
   DESCRIPTION: "Poker planning WebSocket server",
-  VERSION: '1.2.0',
-  VERSION_DATE: '2022-10-25',
+  VERSION: '1.2.1',
+  VERSION_DATE: '2024-05-22',
 });
 
-export const LONG_VERSION_DATE = '1.2.0 (2022-10-25)';
+export const LONG_VERSION_DATE = '1.2.1 (2024-05-22)';
