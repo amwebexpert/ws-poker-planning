@@ -43,6 +43,15 @@ const extractBrowserInfo = (userAgent: string = ''): string => {
 };
 
 const extractRemoteIp = (request: http.IncomingMessage): string => {
+    const xForwardedFor = request.headers['x-forwarded-for']
+    if (xForwardedFor) {
+        if (Array.isArray(xForwardedFor)) {
+            return xForwardedFor[0];
+        }
+
+        return xForwardedFor;
+    }
+
     return request.socket.remoteAddress ?? 'unknown';
 };
 
