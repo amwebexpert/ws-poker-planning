@@ -33,10 +33,13 @@ The `ws-poker-planning` server is a pure `Node.js` backend app that can be easyl
 - your own enterprise internal servers where all your VPN connected users can see the running server
 - cloud solutions providers like `AWS`, `GCP`, `Azure`...
 
-As a proof of concept the app has been deployed at the following location: `ws-poker-planning.herokuapp.com`. However starting November 28, 2022, free Heroku Dynos plans will no longer be available, so this deployment server will be shut down permanently. We strongly suggest to deploy it on your own internal server because:
+The production app has been deployed at the following location(s):
+- `butter-sneaky-waitress.glitch.me` (project deployed on [glitch.com](glitch.com))
+- `amwebexpert.linkpc.net` (work in progress as of 2024-05-26)
 
+You can also deploy it on your internal server because:
 - all your poker planning sessions are going to be private (only visible through your VPN for instance)
-- you can still take advantages of the full poker planning client app (see below) since the hostname and port are just a configuration
+- you can still take advantage of the full poker planning client app (see below) since the hostname and port are just a configuration
 
 ## Full poker planning client app
 
@@ -45,7 +48,7 @@ The [Web Toolbox](https://amwebexpert.github.io/etoolbox/#/PokerPlanning) includ
 - ensure the server is up and running
 - open the [Web Toolbox](https://amwebexpert.github.io/etoolbox/#/PokerPlanning) UI
 - type the hostname:portnumber inside the `Server` field. No need to provide the port if it's the default one (`80` for `http` or `443` for `https`). For instance:
-  - `ws-poker-planning.herokuapp.com`
+  - `butter-sneaky-waitress.glitch.me`
 - type the name of your team inside the `Team name` field
 - type your username in the corresponding field
 - press the share button so the full poker planning session link can be shared with other team members
@@ -64,14 +67,9 @@ The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally)
 
 ## Roadmap
 
-- add error handling:
-  - protection against malformed payloads
-  - add socket.on('error'): log detail and close socket
-- refactor handleMessage: split into small methods and promote immutability inside these methods
 - add an automatic cleanup of old rooms, based on lastUpdateISO8601 poker session attribute
   - send close signal on each socket of the room?
 - add ability to become a room master (the one having more rights on UI side, like being able to remove members)
-
 
 ### References
 
