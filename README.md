@@ -41,7 +41,7 @@ You can also deploy it on your internal server because:
 - all your poker planning sessions are going to be private (only visible through your VPN for instance)
 - you can still take advantage of the full poker planning client app (see below) since the hostname and port are just a configuration
 
-## Full poker planning client app
+## Full poker planning client app (PROD)
 
 The [Web Toolbox](https://amwebexpert.github.io/etoolbox/#/PokerPlanning) includes a full front end implementation of the Poker planning session. To start a poker planning session:
 
@@ -54,9 +54,9 @@ The [Web Toolbox](https://amwebexpert.github.io/etoolbox/#/PokerPlanning) includ
 - press the share button so the full poker planning session link can be shared with other team members
 - the resulting link is going to include the generated room number, the server, and the team name so it can be safely bookmarked for future poker planning sessions
 
-## Full poker planning client app and server on LOCALHOST
+## Full poker planning client app and server (development)
 
-The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally) GitHub project explains how to start the single page app locally. Once this app is started, you can then start a poker planning session server as follow:
+The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally) GitHub project explains how to start the single-page app locally. Once this app is started, you can then start a poker planning session server as follows:
 
 - ensure the server is up and running by executing `npm run start:dev` which is going to start the server on `localhost:8080`
 - open the UI locally at [http://localhost:3000/#/PokerPlanning](http://localhost:3000/#/PokerPlanning)
