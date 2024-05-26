@@ -12,14 +12,17 @@
 
         <p>The poker planning WebSockets server is started. You can now refer it's name the Web Toolbox (see links below)</p>
         <div>
-            Poker planning server hostname: <code><span id="hostname"></span></code>
+            Poker planning server: <code><span id="hostname"></span></code>
+        </div>
+        <div>
+            Poker planning websocket url: <code><span id="webSocketUrl"></span></code>
         </div>
 
         <ul>
-            <li><a href="http://localhost:8080/">RAW Poker Planning on LOCALHOST</a></li>
-            <li><a href="http://localhost:3000/#/PokerPlanning" target="_blank" rel="noopener noreferrer">Web Toolbox - Poker Planning on LOCALHOST</a></li>
+            <li><a id="pockerPlanningRAW" href="http://localhost:8080/">RAW Poker Planning test</a></li>
+            <li><a id="pockerPlanningWebToolboxLOCAL" href="http://localhost:3000/#/PokerPlanning/localhost:8080" target="_blank" rel="noopener noreferrer">Web Toolbox - Poker Planning on LOCALHOST</a></li>
             <li>
-                <a href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning" target="_blank" rel="noopener noreferrer">Web Toolbox - Poker Planning on GitHub Pages</a>
+                <a id="pockerPlanningWebToolbox" href="https://amwebexpert.github.io/etoolbox/#/PokerPlanning" target="_blank" rel="noopener noreferrer">Web Toolbox - Poker Planning on GitHub Pages</a>
             </li>
         </ul>
 
@@ -40,29 +43,32 @@
         <ul id="messages"></div>
 
         <script>
-            const {hostname, port} = document.location;
-            const url = hostname === 'localhost' ? `ws://${hostname}:${port}/ws` : `wss://${hostname}/ws`;
-            document.getElementById('hostname').innerText = url;
+            const { hostname, port } = document.location;
+            const pokerServer = hostname === 'localhost' ? `${hostname}:${port}` : hostname;
+            const webSocketUrl = hostname === 'localhost' ? `ws://${pokerServer}/ws` : `wss://${pokerServer}/ws`;
 
-            let socket = new WebSocket(url);
+            document.getElementById('hostname').innerText = pokerServer;
+            document.getElementById('webSocketUrl').innerText = webSocketUrl;
+            document.getElementById('pockerPlanningRAW').href = `http://${pokerServer}/`
+            document.getElementById('pockerPlanningWebToolboxLOCAL').href = `http://localhost:3000/#/PokerPlanning/${pokerServer}`
+            document.getElementById('pockerPlanningWebToolbox').href = `https://amwebexpert.github.io/etoolbox/#/PokerPlanning/${pokerServer}/default/MyTeam`
+
+            const socket = new WebSocket(webSocketUrl);
 
             // handle incoming messages
-            socket.onmessage = function (event) {
-                let incomingMessage = event.data;
-                showMessage(incomingMessage);
-            };
+            socket.onmessage = (event) => showMessage(event.data);
 
             socket.onclose = event => console.log(`Closed ${event.code}`);
 
             // show message in div#messages
-            function showMessage(message) {
-                let messageElem = document.createElement('li');
+            const showMessage = (message = '') => {
+                const messageElem = document.createElement('li');
                 messageElem.innerHTML = jsonFormatHighlight(message);
                 document.getElementById('messages').prepend(messageElem);
             }
 
             // send message from the form
-            function submitVote() {
+            const submitVote = () => {
                 const outgoingMessage = {
                     type: 'vote',
                     payload: {
@@ -75,7 +81,7 @@
                 socket.send(JSON.stringify(outgoingMessage));
             }
 
-            function clearAllVotes() {
+            const clearAllVotes = () => {
                 const outgoingMessage = { type: 'reset' };
                 socket.send(JSON.stringify(outgoingMessage));
             }
