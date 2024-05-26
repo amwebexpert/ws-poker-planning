@@ -1,6 +1,6 @@
 {
   "name": "ws-poker-planning",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Poker planning WebSocket server",
   "homepage": "https://github.com/amwebexpert/ws-poker-planning#readme",
   "author": "amwebexpert@gmail.com",
@@ -31,6 +31,7 @@
     "start:dev": "ts-node-dev ./src/server.ts --respawn --transpileOnly"
   },
   "dependencies": {
+    "bowser": "^2.11.0",
     "ws": "^8.17.0"
   },
   "devDependencies": {

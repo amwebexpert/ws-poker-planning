@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as http from 'http';
 import * as ws from 'ws';
+import Bowser from "bowser";
 import { URL } from 'url';
 import { pokerPlanningService } from './poker.planning.service';
 import { APP_VERSION_INFO, LONG_VERSION_DATE } from './constants';
@@ -12,10 +13,11 @@ const wss = new ws.Server({ noServer: true });
 const port = process.env.PORT ?? 8080;
 
 const accept = (request: http.IncomingMessage, response: http.ServerResponse) => {
-    console.log('Accepting an incoming connection');
+    const userAgent = Bowser.getParser(request.headers['user-agent'] ?? '');
+    console.log('Incoming connection', {ip: request.socket.remoteAddress, url: request.url, browser: userAgent.getBrowser() });
 
     if (isWebSocketRequest(request)) {
-        console.log('Upgrading connection to websocket');
+        console.log('\tupgrading connection to websocket');
         wss.handleUpgrade(request, request.socket, Buffer.alloc(0), onSocketConnect);
     } else if (request.url === '/') {
         const htmlFile = path.join(__dirname, 'html', 'index.html');
