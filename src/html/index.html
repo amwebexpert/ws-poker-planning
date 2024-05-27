@@ -2,10 +2,6 @@
 <html lang="en">
     <title>Poker Planning server</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <script
-        src="//unpkg.com/json-format-highlight@1.0.1/dist/json-format-highlight.js"
-        type="text/javascript"
-        charset="utf-8"></script>
 
     <body>
         <h3>Poker Planning server</h3>
@@ -34,8 +30,8 @@
 
             <br />
 
-            <div><input type="button" value="Submit vote" onclick="submitVote()" /></div>
-            <div><input type="button" value="Clear all vote" onclick="clearAllVotes()" /></div>
+            <div><input id="btnSubmitVote" type="button" value="Submit vote" /></div>
+            <div><input id="btnClearAllVotes" type="button" value="Clear all vote" /></div>
         </form>
 
         <hr />
@@ -62,8 +58,11 @@
 
             // show message in div#messages
             const showMessage = (message = '') => {
+                const formattedMessage = JSON.stringify(JSON.parse(message), null, 2);
+
                 const messageElem = document.createElement('li');
-                messageElem.innerHTML = jsonFormatHighlight(message);
+                messageElem.innerHTML = `<pre>${formattedMessage}</pre>`;
+
                 document.getElementById('messages').prepend(messageElem);
             }
 
@@ -85,6 +84,10 @@
                 const outgoingMessage = { type: 'reset' };
                 socket.send(JSON.stringify(outgoingMessage));
             }
+
+            // init button handlers
+            document.getElementById("btnSubmitVote").addEventListener("click", submitVote);
+            document.getElementById("btnClearAllVotes").addEventListener("click", clearAllVotes);
       </script>
     </body>
 </html>

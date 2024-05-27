@@ -7,6 +7,7 @@ import * as ws from 'ws';
 
 import { APP_VERSION_INFO, LONG_VERSION_DATE } from './constants';
 import { pokerPlanningService } from './poker-planning.service';
+import { SECURITY_HEADERS } from './server.constants';
 
 // Websockets are established using a specific HTTP request which is “upgraded”. If we don’t specify noServer then the
 // Websocket server will create a HTTP server to handle the upgrade of the browser’s HTTP request to a websocket connection.
@@ -21,12 +22,20 @@ const accept = (request: http.IncomingMessage, response: http.ServerResponse) =>
         console.log('\tupgrading connection to websocket');
         wss.handleUpgrade(request, request.socket, Buffer.alloc(0), onSocketConnect);
     } else if (request.url === '/') {
+        applySecurityHeaders(response);
+        response.writeHead(200, { 'Content-Type': 'text/html' });
         fs.createReadStream(htmlFile).pipe(response);
     } else {
         response.writeHead(404); // classic page not found
         response.end();
     }
 };
+
+const applySecurityHeaders = (response: http.ServerResponse) => {
+    SECURITY_HEADERS.forEach(({name, value}) => {
+        response.setHeader(name, value);
+    })
+}
 
 const logIncomingRequestInfo = (request: http.IncomingMessage) => {
     const ip = extractRemoteIp(request);
