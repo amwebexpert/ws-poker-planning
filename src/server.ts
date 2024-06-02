@@ -7,7 +7,7 @@ import * as ws from 'ws';
 
 import { APP_VERSION_INFO, LONG_VERSION_DATE } from './constants';
 import { pokerPlanningService } from './poker-planning.service';
-import { SECURITY_HEADERS } from './server.constants';
+import { SECURITY_HEADERS_OTHERS } from './server.constants';
 
 // Websockets are established using a specific HTTP request which is “upgraded”. If we don’t specify noServer then the
 // Websocket server will create a HTTP server to handle the upgrade of the browser’s HTTP request to a websocket connection.
@@ -32,7 +32,7 @@ const accept = (request: http.IncomingMessage, response: http.ServerResponse) =>
 };
 
 const applySecurityHeaders = (response: http.ServerResponse) => {
-    SECURITY_HEADERS.forEach(({name, value}) => {
+    SECURITY_HEADERS_OTHERS.forEach(({name, value}) => {
         response.setHeader(name, value);
     })
 }
@@ -47,6 +47,8 @@ const logIncomingRequestInfo = (request: http.IncomingMessage) => {
 };
 
 const extractBrowserInfo = (userAgent: string = ''): string => {
+    if (!userAgent) return '<not provided>'
+    
     const { name, version } = Bowser.getParser(userAgent).getBrowser();
     return `${name} v${version}`;
 };
