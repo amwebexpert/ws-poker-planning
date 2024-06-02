@@ -1,6 +1,6 @@
 {
   "name": "ws-poker-planning",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Poker planning WebSocket server",
   "homepage": "https://github.com/amwebexpert/ws-poker-planning#readme",
   "author": "amwebexpert@gmail.com",
