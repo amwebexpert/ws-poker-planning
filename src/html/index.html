@@ -3,16 +3,20 @@
     <title>Poker Planning server</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
+    <style>
+        body { 
+            font-family: arial; 
+        } 
+    </style>
+
     <body>
         <h3>Poker Planning server</h3>
 
         <p>The poker planning WebSockets server is started. You can now refer it's name the Web Toolbox (see links below)</p>
-        <div>
-            Poker planning server: <code><span id="hostname"></span></code>
-        </div>
-        <div>
-            Poker planning websocket url: <code><span id="webSocketUrl"></span></code>
-        </div>
+        <ul>
+            <li>Poker planning server: <code><span id="hostname"></span></code></li>
+            <li>Poker planning websocket url: <code><span id="webSocketUrl"></span></code></li>
+        </ul>
 
         <ul>
             <li><a id="pockerPlanningRAW" href="http://localhost:8080/">RAW Poker Planning test</a></li>
@@ -25,13 +29,20 @@
         <hr />
 
         <form>
-            <div><input type="text" name="username" id="username" value="John Smith" placeholder="Username" /></div>
-            <div><input type="number" name="message" id="message" value="4" placeholder="Estimate" /></div>
-
-            <br />
-
-            <div><input id="btnSubmitVote" type="button" value="Submit vote" /></div>
-            <div><input id="btnClearAllVotes" type="button" value="Clear all vote" /></div>
+            <table>
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="username" id="username" value="John Smith" placeholder="Username" /></td>
+                    <td><div style="width: 40px;" /></td>
+                    <td><input id="btnSubmitVote" type="button" value="Submit vote" /></td>
+                </tr>
+                <tr>
+                    <td>Vote</td>
+                    <td><div><input type="number" name="message" id="message" value="4" placeholder="Estimate" /></div></td>
+                    <td></td>
+                    <td><input id="btnClearAllVotes" type="button" value="Clear all vote" /></td>
+                </tr>
+            </table>
         </form>
 
         <hr />
@@ -47,7 +58,7 @@
             document.getElementById('webSocketUrl').innerText = webSocketUrl;
             document.getElementById('pockerPlanningRAW').href = `http://${pokerServer}/`
             document.getElementById('pockerPlanningWebToolboxLOCAL').href = `http://localhost:3000/#/PokerPlanning/${pokerServer}`
-            document.getElementById('pockerPlanningWebToolbox').href = `https://amwebexpert.github.io/etoolbox/#/PokerPlanning/${pokerServer}/default/MyTeam`
+            document.getElementById('pockerPlanningWebToolbox').href = `https://amwebexpert.github.io/etoolbox/#/PokerPlanning/${pokerServer}`
 
             const socket = new WebSocket(webSocketUrl);
 
