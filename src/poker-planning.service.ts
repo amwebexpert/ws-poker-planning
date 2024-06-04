@@ -105,12 +105,11 @@ class PokerPlanningService {
     }
 
     private parseIncomingMessage({ value, roomUUID }: ParseIncomingMessage) {
-        const text = `${value}`;
-        console.log(`\tincoming message for room ${roomUUID}: ${text}`);
-
         try {
-            const message = JSON.parse(text) as UserMessage;
-            return message;
+            const text = `${value}`;
+            console.log(`\tincoming message for room ${roomUUID}: ${text}`);
+
+            return JSON.parse(text) as UserMessage;
         } catch (error) {
             console.error('failed to parse incoming message', error);
             return null;
