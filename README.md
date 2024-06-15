@@ -34,7 +34,7 @@ The `ws-poker-planning` server is a pure `Node.js` backend app that can be easyl
 - cloud solutions providers like `AWS`, `GCP`, `Azure`...
 
 The production app has been deployed at the following location(s):
-- `butter-sneaky-waitress.glitch.me` - project deployed on [glitch.com](butter-sneaky-waitress.glitch.me)
+- `butter-sneaky-waitress.glitch.me` - project deployed on [glitch.com](https://butter-sneaky-waitress.glitch.me)
 - `amwebexpert.linkpc.net` - access it here: [https://amwebexpert.linkpc.net](https://amwebexpert.linkpc.net)
 
 You can also deploy it on your internal server because:
