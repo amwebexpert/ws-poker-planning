@@ -67,8 +67,6 @@ The [Web Toolbox](https://github.com/amwebexpert/etoolbox#start-the-app-locally)
 
 ## Roadmap
 
-- show all values automatically when all participants have voted
-- confirmation for deleting all votes: add a 'Yes, dont ask again' button
 - add an automatic cleanup of old rooms, based on lastUpdateISO8601 poker session attribute
   - send close signal on each socket of the room?
 - add ability to become a room master (the one having more rights on UI side, like being able to remove members)
