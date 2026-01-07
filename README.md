@@ -33,9 +33,8 @@ The `ws-poker-planning` server is a pure `Node.js` backend app that can be easyl
 - your own enterprise internal servers where all your VPN connected users can see the running server
 - cloud solutions providers like `AWS`, `GCP`, `Azure`...
 
-The production app has been deployed at the following location(s):
+The production app has been deployed at the following location (thanks to OnRender.com) but may need a warmup step, give it a try:
 - `ws-poker-planning.onrender.com` - deployed on [onrender.com](https://ws-poker-planning.onrender.com)
-- `butter-sneaky-waitress.glitch.me` - deployed on [glitch.com](https://butter-sneaky-waitress.glitch.me)
 
 You can also deploy it on your internal server because:
 - all your poker planning sessions are going to be private (only visible through your VPN for instance)
